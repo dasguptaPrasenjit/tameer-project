@@ -1,0 +1,16 @@
+@import "../../../../variables.scss";
+.page-wrap {
+    //background-color: $primary;
+    box-sizing: border-box;
+    margin: 20px;
+    .search-wrap {
+        .search-field {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+    .apps-wrap {
+        margin-top: 20px;
+    }
+}
+

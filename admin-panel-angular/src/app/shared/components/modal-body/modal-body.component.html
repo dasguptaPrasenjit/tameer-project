@@ -1,0 +1,8 @@
+<mat-dialog-content class="mat-typography">
+    <ng-content *ngIf="!_progressBarService.inProgress(); else spinner"></ng-content>
+    <ng-template #spinner>
+        <div class="centerDiv" style="height: 130px;">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
+</mat-dialog-content>

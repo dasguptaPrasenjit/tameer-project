@@ -1,0 +1,12 @@
+<input type="file" style="display: none;" (change)="selectFile($event)" [accept]="fileTypes.concat()" #fileField />
+<mat-form-field class="full-width" style="padding: 0;">
+    <mat-label>Upload file {{fileTypes.length ? fileTypes.concat():''}} {{required ? "*":""}}</mat-label>
+    <input matInput placeholder="Upload file" [value]="file?.name" [required]="required" readonly>
+    
+    <button type="button" matSuffix mat-icon-button aria-label="Upload" color="primary" (click)="fileField.click()" matTooltip="Browse file">
+        <mat-icon>pageview</mat-icon>
+    </button>
+    <button type="button" matSuffix mat-icon-button aria-label="Clear" (click)="clear()" matTooltip="Clear field">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-form-field>

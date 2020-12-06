@@ -1,0 +1,19 @@
+@import "~@angular/material/theming";
+// Available color palettes: https://material.io/design/color/
+// Copy the palettes from your selected theme (usually theme.scss).
+$app-primary: mat-palette($mat-blue, 600, 400, 800);
+$app-accent: mat-palette($mat-orange, A200, A100, A400);
+$app-warn: mat-palette($mat-red, A200, A100, A400);
+$app-grey: mat-palette($mat-gray, 500);
+$app-grey-l1: mat-palette($mat-gray, 400);
+$app-grey-l2: mat-palette($mat-gray, 200);
+$app-grey-l3: mat-palette($mat-gray, 100);
+// Create your Sass color vars (will be available in all the project)
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);
+$gray: mat-color($app-grey);
+$gray-l1: mat-color($app-grey-l1);
+$gray-l2: mat-color($app-grey-l2);
+$gray-l3: mat-color($app-grey-l3);
+$white: #ffffff;

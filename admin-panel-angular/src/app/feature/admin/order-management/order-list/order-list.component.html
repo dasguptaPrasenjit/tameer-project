@@ -1,0 +1,112 @@
+<div style="padding: 8px;">
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <mat-form-field class="full-width">
+                <mat-label>Filter by Order Status</mat-label>
+                <mat-icon matPrefix color="primary" style="margin-right: 20px;">account_tree</mat-icon>
+                <mat-select [formControl]="orderStatusList">
+                    <mat-option *ngFor="let item of orderStatusArr" [value]="item.key">
+                        {{item.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-4">            
+            <button mat-button color="primary" matSuffix (click)="download($event)" matTooltip="Download as Excel">
+                <mat-icon>download</mat-icon> Download
+            </button>
+        </div>
+        <div class="col-xs-12 col-md-4" style="text-align: right;">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search order" autocomplete="off" #input>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="transaction_id" mat-sort-header>
+            <th mat-header-cell *matHeaderCellDef> Transaction# </th>
+            <td mat-cell *matCellDef="let element">
+                {{element.transaction_id}}
+                <ng-container [ngSwitch]="element.transaction_status">
+                    <mat-icon class="success" *ngSwitchCase="'Success'" matTooltip="Transaction verified"
+                        matTooltipPosition="right">verified_user</mat-icon>
+                    <mat-icon class="failed" *ngSwitchCase="'Failed'" matTooltip="Transaction failed"
+                        matTooltipPosition="right">error</mat-icon>
+                    <mat-icon class="pending" *ngSwitchCase="'Pending'" matTooltip="Transaction status pending"
+                        matTooltipPosition="right">pending</mat-icon>
+                </ng-container>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delivery_address" mat-sort-header>
+            <th mat-header-cell *matHeaderCellDef style="width: 300px;"> Address </th>
+            <td mat-cell *matCellDef="let element" [matTooltip]="element.delivery_address">
+                <p class="address">{{element.delivery_address}}</p>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_amount">
+            <th mat-header-cell *matHeaderCellDef> Order amount </th>
+            <td mat-cell *matCellDef="let element">
+                {{element.order_amount|currency:"₹"}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delivery_amount">
+            <th mat-header-cell *matHeaderCellDef> Delivery </th>
+            <td mat-cell *matCellDef="let element">
+                {{element.delivery_amount|currency:"₹"}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tax_amount">
+            <th mat-header-cell *matHeaderCellDef> Tax </th>
+            <td mat-cell *matCellDef="let element">
+                {{element.tax_amount|currency:"₹"}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transaction_amount">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element">
+                <strong>{{element.transaction_amount|currency:"₹"}}</strong>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="width: 80px;"> Action </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="primary" aria-label="Accept" *ngIf="!element.is_accepted"
+                    matTooltip="Accept the order" (click)="accept(element)"
+                    [disabled]="element.transaction_status == 'Failed' || element.transaction_status == 'Pending'">
+                    <mat-icon>check_circle</mat-icon> Accept
+                </button>
+                <button mat-button color="primary" aria-label="Assign" *ngIf="element.is_accepted"
+                    matTooltip="Assign the order to a delivery boy" (click)="assign(element)"
+                    [disabled]="element.is_assigned == 1 || element.transaction_status == 'Failed' || element.transaction_status == 'Pending'">
+                    <mat-icon>local_shipping</mat-icon> Assign
+                </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef style="width: 100px;"> Location </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="primary" aria-label="Accept" matTooltip="Order live location"
+                    (click)="locate(element)"
+                    [disabled]="!(element.transaction_status == 'Success' && element.is_assigned == 1 && element.is_accepted == 1)">
+                    <mat-icon>location_on</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+</mat-paginator>

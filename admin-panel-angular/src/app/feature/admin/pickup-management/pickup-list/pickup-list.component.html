@@ -1,0 +1,133 @@
+<div style="padding: 8px;">
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <button mat-button color="primary" (click)="addPickup()">
+                <mat-icon>add</mat-icon> Add Pickup
+            </button>
+        </div>
+        <div class="col-xs-12 col-md-4"></div>
+        <div class="col-xs-12 col-md-4" style="text-align: right;">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search order" autocomplete="off" #input>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id" mat-sort-header>
+            <th mat-header-cell *matHeaderCellDef> Tran.ID# </th>
+            <td mat-cell *matCellDef="let element">
+                {{element.id}}
+                <ng-container [ngSwitch]="element.transaction_status">
+                    <mat-icon class="success" *ngSwitchCase="'Success'" matTooltip="Transaction verified"
+                        matTooltipPosition="right">verified_user</mat-icon>
+                    <mat-icon class="failed" *ngSwitchCase="'Failed'" matTooltip="Transaction failed"
+                        matTooltipPosition="right">error</mat-icon>
+                    <mat-icon class="pending" *ngSwitchCase="'Pending'" matTooltip="Transaction status pending"
+                        matTooltipPosition="right">pending</mat-icon>
+                </ng-container>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sender_name" mat-sort-header>
+            <th mat-header-cell *matHeaderCellDef style="width: 260px;"> Sender </th>
+            <td mat-cell *matCellDef="let element">
+                <div class="name">
+                    <mat-icon matTooltip="Payable by Sender" class="payer" *ngIf="element.payer === 'SENDER'">monetization_on</mat-icon>
+                    <span>{{element.sender_name}}</span>
+                </div>
+                <div class="address">
+                    <span>{{element.sender_address}}</span>
+                </div>
+                <div class="mobile">
+                    <span>{{element.sender_mobile}}</span>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="receiver_name" mat-sort-header>
+            <th mat-header-cell *matHeaderCellDef style="width: 260px;"> Receiver </th>
+            <td mat-cell *matCellDef="let element">
+                <div class="name">
+                    <mat-icon matTooltip="Payable by Receiver" class="payer" *ngIf="element.payer === 'RECEIVER'">monetization_on</mat-icon>
+                    <span>{{element.receiver_name}}</span>
+                </div>
+                <div class="address">
+                    <span>{{element.receiver_address}}</span>
+                </div>
+                <div class="mobile">
+                    <span>{{element.receiver_mobile}}</span>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="payable_amount">
+            <th mat-header-cell *matHeaderCellDef style="width: 100px;"> Payment </th>
+            <td mat-cell *matCellDef="let element">
+                <div>{{element.payable_amount | currency:'INR'}}</div>
+                <div class="address">
+                    Mode: <strong>{{element.payment_method}}</strong>
+                </div>
+                <div class="address">
+                    Distance: <strong>{{element.distance}}</strong> KM
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="item_type">
+            <th mat-header-cell *matHeaderCellDef> Item </th>
+            <td mat-cell *matCellDef="let element">
+                <div class="name">
+                    {{element.item_type}}
+                </div>
+                <div class="address">
+                    {{element.product_name}}
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+                <span class="name">{{element.status}}</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dates">
+            <th mat-header-cell *matHeaderCellDef style="width: 160px;"> Dates </th>
+            <td mat-cell *matCellDef="let element">
+                <div class="address">
+                    Placed: <strong>{{element.created_at | date:'short'}}</strong>
+                </div>
+                <div class="address">
+                    Assigned: <strong>{{element.assigned_on | date:'short'}}</strong>
+                </div>
+                <div class="address">
+                    Pickup: <strong>{{element.pickup_on | date:'short'}}</strong>
+                </div>
+                <div class="address">
+                    Finished: <strong>{{element.completed_on | date:'short'}}</strong>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="width: 80px;"> Action </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="primary" aria-label="Assign" matTooltip="Assign the pickup to a delivery boy"
+                    (click)="assign(element)" [disabled]="element.status !== 'PENDING'">
+                    <mat-icon>local_shipping</mat-icon> Assign
+                </button>
+                <app-track-carrier [carrierId]="element.carrier_id" [disabled]="element.status !== 'IN_TRANSIT'" [label]="'Tracking ' + element.id"></app-track-carrier>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+</mat-paginator>

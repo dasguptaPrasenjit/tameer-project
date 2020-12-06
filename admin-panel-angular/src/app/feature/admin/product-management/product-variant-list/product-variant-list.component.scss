@@ -1,0 +1,13 @@
+.veg{
+    color: green;
+}
+.nonveg{
+    color: red;
+}
+.egg{
+    color: orange;
+}
+
+.veg, .nonveg, .egg {
+    cursor: default;
+}

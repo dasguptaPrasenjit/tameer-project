@@ -1,0 +1,16 @@
+<div class="all-wrap">
+    <div class="page-wrap">
+        <mat-toolbar color="primary">
+            <span>Admin Panel</span>
+            <span class="spacer"></span>
+            <app-menu></app-menu>
+        </mat-toolbar>
+        <div class="grid-container content">
+            <ng-content></ng-content>
+        </div>
+        <div class="footer">
+            Copyright &copy; {{year}} Admin Panel. All rights reserved. | Version:
+            1.0 | <a href="">Terms & conditions</a> | <a href="">Privacy policy</a>
+        </div>
+    </div>
+</div>

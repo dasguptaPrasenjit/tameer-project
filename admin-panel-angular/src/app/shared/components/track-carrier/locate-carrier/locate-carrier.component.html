@@ -1,0 +1,7 @@
+<app-modal-body>
+    <span *ngIf="modalData.label">{{modalData.label}}</span>
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14">
+        <agm-marker [latitude]="lat" [longitude]="lng" iconUrl="./assets/map-marker.png" title="Delivering"></agm-marker>
+    </agm-map>
+</app-modal-body>
+<app-modal-action></app-modal-action>

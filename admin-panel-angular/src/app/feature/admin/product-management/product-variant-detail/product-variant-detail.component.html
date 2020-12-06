@@ -1,0 +1,48 @@
+<app-modal-header>Product Variant Detail: {{variantDetail?.product_name}}</app-modal-header>
+<app-modal-body>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span *ngFor="let file of variantDetail?.filenames">
+                        <img [src]="_UploaderService.getImage(file)" height="80" appImgFallback>
+                    </span>
+                </div>
+                <div class="col-xs-12">
+                    <span class="label">Variant:</span>
+                    <mat-chip-list aria-label="photo" *ngIf="keys()?.length > 0">
+                        <mat-chip color="accent" *ngFor="let variant of keys()">
+                            {{variant}}: {{variantDetail?.variant[variant]}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="label">SKU:</span>
+                    <span class="value">{{variantDetail?.sku}}</span>
+                </div>
+                <div class="col-xs-12">
+                    <span class="label">Price:</span>
+                    <span class="value">{{variantDetail?.price}}</span>
+                </div>
+                <div class="col-xs-12">
+                    <span class="label">Available Unit:</span>
+                    <span class="value">{{variantDetail?.total_available_unit}}</span>
+                </div>
+                <div class="col-xs-12">
+                    <span class="label">Update Unit</span>
+                    <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Unit" [(ngModel)]="no_of_unit" required>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-modal-body>
+<app-modal-action>
+    <button mat-raised-button type="button" color="primary" (click)="submit($event)"
+        [disabled]="_ProgressBarService.inProgress()">Save</button>
+</app-modal-action>

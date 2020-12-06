@@ -1,0 +1,15 @@
+<mat-tab-group mat-align-tabs="start" [selectedIndex]="selected" (selectedIndexChange)="setTabIndex($event)">
+    <mat-tab label="Base Products">
+        <app-product-list (onTabAdd)="handleOnTabAdd($event)"></app-product-list>
+    </mat-tab>
+    <mat-tab *ngFor="let tab of tabs; let index = index">
+        <ng-template mat-tab-label>
+            <mat-icon color="primary">category</mat-icon>
+            <span style="margin-left: 10px; font-size: 12px;">{{tab.category_name|textTruncate:8}}/{{tab.product_name|textTruncate:12}}</span>
+            <button mat-icon-button color="primary" (click)="removeTab(index)">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </ng-template>
+        <app-product-variant-list [product]="tab"></app-product-variant-list>
+    </mat-tab>
+</mat-tab-group>

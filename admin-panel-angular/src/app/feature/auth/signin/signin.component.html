@@ -1,0 +1,31 @@
+<mat-card>
+    <form [formGroup]="form" (submit)="submit($event)" autocomplete="off">
+        <mat-card-title class="centerDiv">
+            <span>Sign In to Admin Panel</span>            
+        </mat-card-title>                
+        <mat-card-content>
+            <div class="row">
+                <div class="col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input type="text" matInput placeholder="Email" formControlName="email">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input type="password" matInput placeholder="Password" formControlName="password">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <div class="abs-full-width">
+            <app-progress></app-progress>
+        </div>
+        <mat-card-actions align="end">
+            <a mat-button routerLink="/" [disabled]="_progressBarService.inProgress()">Don't want to sign in</a>
+            <button type="submit" mat-raised-button color="primary" (click)="submit($event)"
+                [disabled]="form.invalid || _progressBarService.inProgress()">
+                Sign In
+            </button>
+        </mat-card-actions>
+    </form>
+</mat-card>

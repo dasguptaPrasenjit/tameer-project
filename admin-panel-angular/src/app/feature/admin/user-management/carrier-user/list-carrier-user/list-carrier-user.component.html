@@ -1,0 +1,69 @@
+<div class="row" style="margin: 0;">
+    <div class="col-xs-6">
+        <!-- <button mat-button color="primary" (click)="addUser()">
+            <mat-icon>add</mat-icon> Add New Vendor
+        </button> -->
+    </div>
+    <div class="col-xs-6" style="text-align: right;">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search" autocomplete="off" #input>
+        </mat-form-field>
+    </div>
+</div>
+
+<div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="carrier_id">
+            <th mat-header-cell *matHeaderCellDef> ID# </th>
+            <td mat-cell *matCellDef="let element"> {{element.carrier_id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.user_email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile_number">
+            <th mat-header-cell *matHeaderCellDef> Mobile </th>
+            <td mat-cell *matCellDef="let element"> {{element.mobile_number}} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="no_of_active_orders">
+            <th mat-header-cell *matHeaderCellDef> Orders </th>
+            <td mat-cell *matCellDef="let element"> {{element.no_of_active_orders}} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="documents">
+            <th mat-header-cell *matHeaderCellDef> Documents </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="primary" aria-label="Docs" (click)="viewDocuments(element)" matTooltip="View & verify documents of the carrier">
+                    <mat-icon>text_snippet</mat-icon> Docs                   
+                </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="width: 160px;"> Action </th>
+            <td mat-cell *matCellDef="let element">
+                <app-track-carrier [carrierId]="element.carrier_id" [disabled]="element.is_active !== 1" [label]="'Tracking ' + element.name"></app-track-carrier>
+                <button mat-button [color]="element.is_active == 1 ? 'primary':'accent'" aria-label="Activate" (click)="changeIsActive(element)" matTooltip="Block/unblock the carrier">
+                    <mat-icon>fiber_manual_record</mat-icon> {{element.is_active == 1 ? 'Block':'Unblock'}}                   
+                </button>
+                <!-- <button mat-button color="primary" aria-label="Remove Vendor" (click)="remove(element)" [disabled]="element.is_active == 0">
+                    <mat-icon>delete</mat-icon> Delete
+                </button> -->
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'deleted':row.is_active == 0}"></tr>
+    </table>
+</div>
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+</mat-paginator>

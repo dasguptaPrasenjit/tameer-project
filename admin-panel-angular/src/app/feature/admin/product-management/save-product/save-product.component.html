@@ -1,0 +1,41 @@
+<form [formGroup]="form" (submit)="submit($event)" autocomplete="off">
+    <app-modal-header>{{modalData?.product ? 'Edit' : 'Add'}} Base Product</app-modal-header>
+    <app-modal-body>
+        <div class="row">
+            <div class="col-xs-12">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Product Name" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12">
+                <mat-form-field class="full-width">
+                    <mat-label>Select Category</mat-label>
+                    <mat-select formControlName="categoryid">
+                        <mat-option *ngFor="let item of caterories" [value]="item.id" [disabled]="item.isParent">
+                            <span [ngClass]="{'subcategory-indent': !item.isParent}">
+                                {{item.categoryname}}
+                            </span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12">
+                <div class="full-width">
+                    <app-file-browser [fileTypes]="['.jpg', '.jpeg', '.png']" (change)="fileChanged($event)">
+                    </app-file-browser>
+                    <mat-chip-list aria-label="photo" *ngIf="form?.get('imageurl')?.value?.length > 0">
+                        <mat-chip color="accent" *ngFor="let file of form.get('imageurl')?.value" [removable]="true"
+                            (removed)="removeFile(file)">
+                            {{file|textTruncate:15}}
+                            <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+        </div>
+    </app-modal-body>
+    <app-modal-action>
+        <button mat-raised-button color="primary" (click)="submit($event)"
+            [disabled]="_ProgressBarService.inProgress() || form.invalid">Save</button>
+    </app-modal-action>
+</form>

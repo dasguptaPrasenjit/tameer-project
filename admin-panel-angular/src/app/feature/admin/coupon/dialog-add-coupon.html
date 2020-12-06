@@ -1,0 +1,66 @@
+
+<h2 mat-dialog-title>Add Coupon</h2>
+
+<mat-card class="center" style="width:500px">
+  <form [formGroup]="form" (ngSubmit)="saveCoupon(form)">
+    <mat-form-field class="full-width">
+      <mat-label>Select Category (Select proper category to add coupon)</mat-label>
+      <mat-select formControlName="category_id" (selectionChange)="getVendorByCategory($event)">
+        <mat-option *ngFor="let cat of allCategory" value="{{cat.id}}">{{cat.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Select Vendor (leave this field blank to add coupon for all vendor)</mat-label>
+        <mat-select formControlName="vendorid">
+          <mat-option *ngFor="let vendor of vendorByCatID" value="{{vendor.id}}">
+            {{vendor.shop_name}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Coupon Code" formControlName="coupon_code">
+      </mat-form-field>
+
+
+      <mat-form-field class="half-width">
+        <textarea matInput placeholder="Coupon Description" formControlName="coupon_description"></textarea>
+      </mat-form-field>
+
+
+      <mat-form-field class="half-width">
+        <input type="date" matInput placeholder="Coupon Valid From" formControlName="coupon_valid_from">
+      </mat-form-field>
+
+
+      <mat-form-field class="half-width">
+        <input type="date" matInput placeholder="Coupon Valid To" formControlName="coupon_valid_to">
+      </mat-form-field>
+
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Coupon Usage Count" formControlName="coupon_usage_count">
+      </mat-form-field>
+
+
+      <mat-form-field class="half-width">
+        <input  matInput placeholder="Discount Amount(%)" formControlName="discount_amount">
+      </mat-form-field>
+
+      <app-file-browser [fileTypes]="['.jpg', '.jpeg', '.png']" (change)="fileChanged($event)">
+      </app-file-browser>
+      <!-- <span *ngIf="form.get('coupon_banner_url')?.value">
+        {{form.get('coupon_banner_url')?.value|textTruncate:15}}
+        <mat-icon (click)="removeFile()">cancel</mat-icon>
+    </span> -->
+
+
+  <button class="mat-raised-button mat-warn" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" [disabled]="!form.valid">Save</button>
+
+   </form>
+</mat-card>
+

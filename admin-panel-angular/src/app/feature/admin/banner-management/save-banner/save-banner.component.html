@@ -1,0 +1,27 @@
+<form [formGroup]="form" (submit)="submit($event)" autocomplete="off">
+    <app-modal-header>{{modalData?.banner ? "Edit" + modalData?.banner.name :"Add Banner"}} </app-modal-header>
+    <app-modal-body>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Banner Name" formControlName="name">
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <div class="full-width">
+                    <app-file-browser [fileTypes]="['.jpg', '.jpeg', '.png']" (change)="fileChanged($event)">
+                    </app-file-browser>
+                    <span *ngIf="form.get('image')?.value">
+                        {{form.get('image')?.value|textTruncate:15}}
+                        <mat-icon (click)="removeFile()">cancel</mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </app-modal-body>
+    <app-modal-action>
+        <button mat-raised-button color="primary" (click)="submit($event)"
+            [disabled]="_ProgressBarService.inProgress() || form.invalid">Save</button>
+    </app-modal-action>
+</form>

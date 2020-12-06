@@ -1,0 +1,56 @@
+<form [formGroup]="form" (submit)="submit($event)" autocomplete="off">
+    <app-modal-header>Save Category</app-modal-header>
+    <app-modal-body>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Category Name" formControlName="name">
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Slug" formControlName="slug">
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <textarea matInput placeholder="Category Description" formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <textarea matInput placeholder="Meta Description" formControlName="meta_description"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <mat-form-field class="full-width">
+                    <textarea matInput placeholder="Meta Keywords" formControlName="meta_keywords"></textarea>
+                </mat-form-field>
+            </div>
+            
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Meta Title" formControlName="meta_title">
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <div class="full-width">
+                    <app-file-browser [fileTypes]="['.jpg', '.jpeg', '.png']" (change)="fileChanged($event)">
+                    </app-file-browser>
+                    <span *ngIf="form.get('category_image')?.value">
+                        {{form.get('category_image')?.value|textTruncate:15}}
+                        <mat-icon (click)="removeFile()">cancel</mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </app-modal-body>
+    <app-modal-action>
+        <button mat-raised-button color="primary" (click)="submit($event)"
+            [disabled]="_ProgressBarService.inProgress() || form.invalid">Save</button>
+    </app-modal-action>
+</form>

@@ -1,0 +1,14 @@
+<app-modal-body>
+    <mat-list *ngIf="notiList?.length > 0; else noitem">
+        <mat-list-item *ngFor="let item of notiList" [ngClass]="{'unread': item.is_opened == 0}" (click)="readNoti(item)">
+            <div mat-line>
+                <span>{{item.title}}</span>
+                <span class="date">{{item.created_at|date:'short'}}</span>
+            </div>            
+            <div mat-line>{{item.message}}</div>
+            <mat-divider></mat-divider>            
+        </mat-list-item>        
+    </mat-list>
+    <ng-template #noitem>No new notification</ng-template>
+</app-modal-body>
+<app-modal-action></app-modal-action>

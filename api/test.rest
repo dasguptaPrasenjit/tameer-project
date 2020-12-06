@@ -1,0 +1,279 @@
+@local = http://localhost:8000
+@production = https://deliveryontime.co.in/api/public
+@baseUrl = {{local}}/api
+
+POST {{baseUrl}}/login HTTP/1.1
+Content-type: application/json
+
+{
+    "email": "saikat@gmail.com",
+    "password": "12345678"
+}
+
+@authorization = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGNmMjZmMGIzNjhhNjc3MDY5MDMyM2YwN2YzZWM2ZTAwYmFmMzM5ZDZlMTJhYzVjYjY2NzdkN2ExMzM1ZGI1MzgzNTMzNzFlNWY2MjAyNzciLCJpYXQiOjE2MDY5MTY0MzUsIm5iZiI6MTYwNjkxNjQzNSwiZXhwIjoxNjM4NDUyNDM1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.4MCgTBYg1byWEkeIbuBVGL_CNpxXMoxzsbmw1d2HanDfBA1V82BBc5p3lkkwvOODuFKLKvO7SZGDA5Z_MfI0OlNKWCGZExugOXWm3DdipuVkCwaeJBLrhN7rlS0pMI2gXNcHGjpPWJ5baaJxU__RwkjSfSH_Fh9j_J55C87r2sKkPpZVsgqkkMJ6w-zdnfdy3sdvENp-o0qKxGoHPyHKKfVYJjH7Sa7p2VTG_KrBWHYrsPQzjsdgXsA4t6kX6CmXCW1XpTSrDb4-sj4KGnWPYq0yyVTovl0BJ9oTWWXXefKTJEHXnkwxTjdja56L8SQ4mHthjTwKVM8o3NxoLi89n1FIcPnIPI8IMs4gPrPR9n2sz07DUblTsqFJ3XTsdj0CLLFW9ApoDu6ZFFI8ZR-jWDIGhNUkSqHoazjfLKkpl5L09Z6nNczikCNvzmoQO-CqPHblP4elByKVWB7NFN-3ztH5R4LAqvx6IOcOTwOJJ4vbZUKZBvOxdG5PBuSYyalehA3kUAsl14MG2go_bxw37kf-mEQNzc6EQmviPydhdzfkPq8l2dl44r65hZYwxd1bFUE-TViLFlZE_sWD-IN7p3KMgIOY6VColZquPlAxOc39H53A4WKfwKeAfMznaSUA2shgfeiJUAVFvyqKMa97QNkWneEbTmp_lheH22JBEpc
+
+GET {{baseUrl}}/allfoods?category_id=2&vendor_id=13
+Content-type: application/json
+
+POST {{baseUrl}}/order/list/all HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "export": 1
+}
+
+POST {{baseUrl}}/order/details HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "orderid": 69
+}
+
+POST {{baseUrl}}/order/recent HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "userid": 113
+}
+
+POST {{baseUrl}}/user/update HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "name": "Saikat",
+    "email": "saikat@gmail.com"
+}
+
+POST {{baseUrl}}/carrier/add/mobile HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "mobile_number": "+919614523993",
+    "device_id": "02fd43b4ceb46aba"
+}
+
+
+POST {{baseUrl}}/product/search HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "search_data": "rice"
+}
+
+
+POST {{baseUrl}}/product/add HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "productid":"1",
+    "vendorid":"2",
+    "price":"100",
+    "no_of_unit":"10",
+    "variant":{"Weight":"500"},
+    "sku_name":"MAGGI",
+    "filenames":["/uploads/category/1602326300.image_picker1786218710469669181.jpg"]
+}
+
+POST {{baseUrl}}/pickup HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "receiver_name": "Arindam",
+    "receiver_mobile": "9614523993",
+    "receiver_address": null,
+    "receiver_pin": null,
+    "receiver_landmark": null,
+    "sender_name": null,
+    "sender_mobile": null,
+    "sender_address": null,
+    "sender_pin": null,
+    "sender_landmark": null,
+    "payment_method": "COD",
+    "payer": "SENDER",
+    "item_type": "document",
+    "product_name": "paper1",
+    "weight": "10 gm"
+}
+
+GET {{baseUrl}}/pickup HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+GET {{baseUrl}}/pickup/4 HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+POST {{baseUrl}}/pickup/accept HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "id": 34
+}
+
+POST {{baseUrl}}/pickup/complete HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "id": 34,
+    "status": "DELIVERED"
+}
+
+POST {{baseUrl}}/pickup/create HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "receiver_name": "Arindam",
+    "receiver_mobile": "9614523993",
+    "receiver_address": null,
+    "receiver_pin": null,
+    "receiver_landmark": null,
+    "sender_name": null,
+    "sender_mobile": null,
+    "sender_address": null,
+    "sender_pin": null,
+    "sender_landmark": null,
+    "payment_method": "COD",
+    "payer": "SENDER",
+    "item_type": "document",
+    "product_name": "paper1",
+    "weight": "10 gm"
+}
+
+POST {{baseUrl}}/pickup/assign HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "id": 26,
+    "carrier_id": 1
+}
+
+POST {{baseUrl}}/vendor/registerbyadmin HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "mobile_number": "+911234567890",
+    "shop_name": "shop_name",
+    "category": 1,
+    "address": "address",
+    "city": "city",
+    "state": "state",
+    "zip": 1234567,
+    "name": "name", 
+    "email": "email@email.email5", 
+    "password": "password", 
+    "confirm_password": "password"
+}
+
+PUT {{baseUrl}}/vendor/registerbyadmin/4 HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "vendor_image": "a/b/c.png"
+}
+
+POST {{baseUrl}}/parent-categories HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{ }
+
+POST {{baseUrl}}/vendors/all HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{ 
+    "category_id": 2
+}
+
+POST {{baseUrl}}/product/delete HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{ 
+    "id": 1
+}
+
+GET {{baseUrl}}/productlist?category_id=2&vendor_id=2 HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+PUT {{baseUrl}}/carrier/location HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{ 
+    "id": 1,
+    "latitude": "80.1",
+    "longitude": "27.456"
+}
+
+GET {{baseUrl}}/carrier/1/location HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+
+GET {{baseUrl}}/notification/admin HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+POST {{baseUrl}}/carrier/documents HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "carrier_id": 1,
+    "proof_vehicle_no": "a/b/c",
+    "proof_photo": null,
+    "proof_address": null
+}
+
+POST {{baseUrl}}/carrier HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "carrierid": 1
+}
+
+POST {{baseUrl}}/carrier/report HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "carrier_id": 1,
+    "reported_proof_vehicle_no": 1,
+    "reported_proof_photo": 0,
+    "reported_proof_address": 0,
+    "remarks": ""
+}
+
+GET {{baseUrl}}/order/export HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+GET {{baseUrl}}/config HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+PUT {{baseUrl}}/config HTTP/1.1
+Content-type: application/json
+Authorization: {{authorization}}
+
+{
+    "id": 1,
+    "max_orders_per_carrier": 4
+}

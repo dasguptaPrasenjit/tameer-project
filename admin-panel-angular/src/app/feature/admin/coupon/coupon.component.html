@@ -1,0 +1,53 @@
+<div style="padding: 8px;">
+  <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <button mat-raised-button color="accent" (click)="addCoupon()">Add Coupon</button>
+      </div>
+
+  </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Coupon Code Column -->
+  <ng-container matColumnDef="coupon_code">
+    <th mat-header-cell *matHeaderCellDef> Coupon Code </th>
+    <td mat-cell *matCellDef="let element"> {{element.coupon_code}} </td>
+  </ng-container>
+
+  <!-- Coupon Valid From Column -->
+  <ng-container matColumnDef="coupon_valid_from">
+    <th mat-header-cell *matHeaderCellDef> Coupon Valid From </th>
+    <td mat-cell *matCellDef="let element"> {{element.coupon_valid_from}} </td>
+  </ng-container>
+
+  <!-- Coupon Valid To Column -->
+  <ng-container matColumnDef="coupon_valid_to">
+    <th mat-header-cell *matHeaderCellDef> Coupon Valid To </th>
+    <td mat-cell *matCellDef="let element"> {{element.coupon_valid_to}} </td>
+  </ng-container>
+
+  <!-- Discount Amount Column -->
+  <ng-container matColumnDef="discount_amount">
+    <th mat-header-cell *matHeaderCellDef> Discount Amount </th>
+    <td mat-cell *matCellDef="let element"> {{element.discount_amount}}% </td>
+  </ng-container>
+
+  <!-- Coupon Image Column -->
+  <ng-container matColumnDef="coupon_banner_url">
+    <th mat-header-cell *matHeaderCellDef> Coupon Image </th>
+    <td mat-cell *matCellDef="let element"> <img [src]="_UploaderService.getImage(element.coupon_banner_url)" height="40" appImgFallback /> </td>
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let element"> <button class="mat-raised-button mat-warn" (click)="deleteCoupon(element)">Delete</button> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

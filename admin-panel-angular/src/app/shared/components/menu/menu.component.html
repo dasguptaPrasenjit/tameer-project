@@ -1,0 +1,16 @@
+<a mat-mini-fab color="default" routerLink="/admin/dashboard" *ngIf="user">
+    <mat-icon>home</mat-icon>
+</a>
+<span *ngIf="user; else signin">    
+    <button mat-button [matMenuTriggerFor]="menu">
+        <span>{{user.name}}</span>
+        <mat-icon aria-hidden="false">expand_more</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <a mat-menu-item routerLink="/admin/account">Account</a>
+        <app-sign-out></app-sign-out>
+    </mat-menu>
+</span>
+<ng-template #signin>
+    <a mat-raised-button routerLink="/auth">Sign In</a>
+</ng-template>

@@ -1,0 +1,37 @@
+<div class="page-wrap">
+    <div class="center search-wrap">
+        <mat-form-field appearance="outline" floatLabel="always" color="accent" class="search-field">
+            <mat-label>Search with keywords</mat-label>
+            <input matInput placeholder="Placeholder" autocomplete="off">
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-hint>Search with keywords, eg. Products, Categories, Vendors</mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="apps-wrap">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <mat-card>
+                    <mat-card-content>
+                        <div style="display: block">
+                            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
+                            </canvas>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-card>
+                    <mat-card-content>
+                        <div style="display: block">
+                            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                [options]="pieChartOptions" [colors]="pieChartColors"
+                                [legend]="pieChartLegend">
+                            </canvas>
+                        </div>
+                    </mat-card-content>                    
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

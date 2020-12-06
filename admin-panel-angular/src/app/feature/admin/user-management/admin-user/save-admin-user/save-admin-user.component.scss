@@ -1,0 +1,10 @@
+section {
+    display: table;
+    margin: 8px;
+    .button-row {
+        display: table-cell;
+    }
+}
+.grid-tile{
+    padding: 10px;
+}

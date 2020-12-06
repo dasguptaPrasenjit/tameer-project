@@ -1,0 +1,9 @@
+<app-layout-top-left [menuItems]="menuItems">
+    <app-layout-top-left-side-content>
+        <div class="centerDiv">
+            <img [src]="profileUrl" height="80" width="80" appImgFallback/>
+            <div style="text-align: center;">{{user?.name}}</div>
+        </div>
+    </app-layout-top-left-side-content>
+    <router-outlet></router-outlet>
+</app-layout-top-left>

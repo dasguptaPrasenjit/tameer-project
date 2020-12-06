@@ -1,0 +1,29 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <ng-content select="app-layout-top-left-side-content"></ng-content>
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let menuItem of menuItems" routerLink="{{menuItem.link}}"
+                routerLinkActive="active">{{menuItem.label}}</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" class="mat-toolbar-height">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <div style="line-height: 1;">
+                <div>Delivery On Time</div>
+                <small>Control Panel</small>
+            </div>
+            <span class="spacer"></span>
+            <mat-icon [matBadge]="notiCount" matBadgeColor="accent" class="spacing" *ngIf="user" (click)="openNotifications()">notifications</mat-icon>
+            <app-menu></app-menu>
+        </mat-toolbar>
+        <app-progress></app-progress>
+        <div class="grid-container">
+            <ng-content></ng-content>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

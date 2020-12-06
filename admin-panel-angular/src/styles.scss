@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "./variables.scss";
+@import "~flexboxgrid/dist/flexboxgrid.min.css";
+
+@include mat-core();
+
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($app-theme);
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.grid-container {
+    margin: 20px;
+    box-sizing: border-box;
+}
+.spacer {
+    flex: 1 1 auto;
+}
+.full-width {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.center {
+    margin: 0 auto;
+}
+.centerDiv {
+    margin: 0 auto;
+    width: fit-content;
+}
+table {
+    width: 100%;
+    box-sizing: border-box;
+}
+a,
+a:active,
+a:visited {
+    color: $primary;
+    text-decoration: none;
+}
+.subcategory-indent {
+    margin-left: 24px;
+    font-size: 12px;
+}
+
+mat-card {
+    margin-bottom: 8px;
+}
+
+textarea {
+    resize: none !important;
+}
+
+.heading1,
+.heading2 {
+    font-weight: bold;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin: 0px;
+}
+.heading1 {
+    font-size: 14px;
+}
+
+.heading2 {
+    font-size: 12px;
+}
+
+.label, .value{
+    font-size: 12px;
+}
+.label{
+    font-weight: 500;
+    color: $gray-l1;
+    margin-right: 14px;
+}
+
+.text-right{
+    text-align: right;
+}
+
+[mat-cell]{
+    button[mat-button]{
+        font-size: 12px;
+        padding: 0 8px;
+        mat-icon{
+            font-size: 15px;
+            width: 15px;
+            height: 15px;
+            line-height: 0.9;
+        }
+    }
+}
+
+.deleted{
+    text-decoration: line-through;
+}

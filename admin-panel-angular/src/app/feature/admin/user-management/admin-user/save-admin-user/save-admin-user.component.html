@@ -1,0 +1,82 @@
+<form [formGroup]="form" (submit)="submit($event)" autocomplete="off">
+    <app-modal-header>{{userToEdit ? "Save":"Add New"}} Vendor</app-modal-header>
+    <app-modal-body>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category_id" required>
+                        <mat-option *ngFor="let item of categories" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Name" formControlName="name" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6" *ngIf="!userToEdit">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Email" formControlName="email" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Mobile Number" formControlName="mobile_number" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6" *ngIf="!userToEdit">
+                <mat-form-field class="full-width">
+                    <input type="password" matInput placeholder="Password" formControlName="password" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6" *ngIf="!userToEdit">
+                <mat-form-field class="full-width">
+                    <input type="password" matInput placeholder="Confirm Password" formControlName="confirm_password"
+                        required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Shop Name" formControlName="shop_name" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Address" formControlName="address" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="City" formControlName="city" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="State" formControlName="state" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Zip" formControlName="zip" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="full-width">
+                    <app-file-browser [fileTypes]="['.jpg', '.jpeg', '.png']" (change)="fileChanged($event)">
+                    </app-file-browser>
+                    <span *ngIf="form.get('vendor_image')?.value">
+                        {{form.get('vendor_image')?.value|textTruncate:15}}
+                        <mat-icon (click)="removeFile()">cancel</mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </app-modal-body>
+    <app-modal-action>
+        <button mat-raised-button color="primary" (click)="submit($event)"
+            [disabled]="form.invalid || progressBarService.inProgress()">Save</button>
+    </app-modal-action>
+</form>

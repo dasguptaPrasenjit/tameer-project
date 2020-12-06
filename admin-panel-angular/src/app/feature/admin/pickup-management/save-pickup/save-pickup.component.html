@@ -1,0 +1,180 @@
+<form [formGroup]="form" (submit)="submit($event)" autocomplete="off">
+    <app-modal-header>Add Pickup </app-modal-header>
+    <app-modal-body>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Sender Detail</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Sender Name" formControlName="sender_name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Sender Mobile" formControlName="sender_mobile">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12">
+                        <mat-form-field class="full-width" appearance="outline" floatLabel="auto">
+                            <mat-label>Search Sender Location</mat-label>
+                            <input type="text" matInput (keydown.enter)="$event.preventDefault()"
+                                autocorrect="off" autocapitalize="off"
+                                spellcheck="off" type="text" #searchSender>
+                                <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                        <agm-map [latitude]="latitudeSender" [longitude]="longitudeSender" [zoom]="zoomSender">
+                            <agm-marker [latitude]="latitudeSender" [longitude]="longitudeSender"
+                                [markerDraggable]="true" (dragEnd)="markerDragEnd($event, 'SENDER')"></agm-marker>
+                        </agm-map>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Sender Address" formControlName="sender_address" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Sender Pin" formControlName="sender_pin" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Sender Landmark" formControlName="sender_landmark">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Sender Lat" formControlName="sender_latitude" readonly required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Sender Long" formControlName="sender_longitude" readonly required>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Receiver Detail</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Receiver Name" formControlName="receiver_name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Receiver Mobile" formControlName="receiver_mobile">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12">
+                        <mat-form-field class="full-width" appearance="outline" floatLabel="auto">
+                            <mat-label>Search Receiver Location</mat-label>
+                            <input type="text" matInput (keydown.enter)="$event.preventDefault()"
+                                autocorrect="off" autocapitalize="off"
+                                spellcheck="off" type="text" #searchReceiver>
+                        </mat-form-field>
+                        <agm-map [latitude]="latitudeReceiver" [longitude]="longitudeReceiver" [zoom]="zoomReceiver">
+                            <agm-marker [latitude]="latitudeReceiver" [longitude]="longitudeReceiver"
+                                [markerDraggable]="true" (dragEnd)="markerDragEnd($event, 'RECEIVER')"></agm-marker>
+                        </agm-map>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Receiver Address"
+                                formControlName="receiver_address" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Receiver Pin" formControlName="receiver_pin" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Receiver Landmark"
+                                formControlName="receiver_landmark">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Receiver Lat" formControlName="receiver_latitude" readonly required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Receiver Long" formControlName="receiver_longitude" readonly required>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <mat-label>Payment Method</mat-label>
+                    <mat-select formControlName="payment_method" required>
+                        <mat-option *ngFor="let item of paymentMethods" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <mat-label>Payer</mat-label>
+                    <mat-select formControlName="payer" required>
+                        <mat-option *ngFor="let item of payerTypes" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Item Type" formControlName="item_type">
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Product Name" formControlName="product_name">
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Weight" formControlName="weight">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <mat-form-field class="full-width">
+                    <input type="number" matInput placeholder="Cost per KM" formControlName="cost_per_km"
+                        (change)="calculateAmount($event, form.value.distance)" required>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Distance" formControlName="distance" readonly required>
+                    <span matSuffix>KM</span>
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <mat-form-field class="full-width">
+                    <input type="text" matInput placeholder="Payable Amount" formControlName="payable_amount" required>
+                </mat-form-field>
+            </div>
+        </div>
+    </app-modal-body>
+    <app-modal-action>
+        <button mat-raised-button color="primary" (click)="submit($event)"
+            [disabled]="_ProgressBarService.inProgress() || form.invalid">Save</button>
+    </app-modal-action>
+</form>

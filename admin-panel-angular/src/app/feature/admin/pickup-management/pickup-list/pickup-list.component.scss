@@ -1,0 +1,24 @@
+@import "../../../../../variables.scss";
+.name, .address, .mobile, .payer {
+    cursor: default;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 2px;
+}
+.name {
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.mobile {
+    color: $primary;
+}
+
+.payer{
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    line-height: 20px;
+    color: green;
+}

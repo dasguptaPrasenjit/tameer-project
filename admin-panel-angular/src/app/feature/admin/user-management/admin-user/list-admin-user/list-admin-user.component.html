@@ -1,0 +1,59 @@
+<div class="row" style="margin: 0;">
+    <div class="col-xs-6">
+        <button mat-button color="primary" (click)="addUser()">
+            <mat-icon>add</mat-icon> Add New Vendor
+        </button>
+    </div>
+    <div class="col-xs-6" style="text-align: right;">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search" autocomplete="off" #input>
+        </mat-form-field>
+    </div>
+</div>
+
+<div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="user_email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.user_email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="shop_name">
+            <th mat-header-cell *matHeaderCellDef> Shop </th>
+            <td mat-cell *matCellDef="let element"> {{element.shop_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category_name">
+            <th mat-header-cell *matHeaderCellDef> Category </th>
+            <td mat-cell *matCellDef="let element"> {{element.category_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="width: 160px;"> Action </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="primary" aria-label="Edit Vendor" (click)="editUser(element)" [disabled]="element.is_active == 0">
+                    <mat-icon>edit</mat-icon> Edit
+                </button>
+                <button mat-button color="primary" aria-label="Remove Vendor" (click)="remove(element)" [disabled]="element.is_active == 0">
+                    <mat-icon>delete</mat-icon> Delete
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'deleted':row.is_active == 0}"></tr>
+    </table>
+</div>
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+</mat-paginator>

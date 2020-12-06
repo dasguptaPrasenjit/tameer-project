@@ -1,0 +1,19 @@
+<form [formGroup]="form" (submit)="submit($event)" autocomplete="off">
+    <app-modal-header>Assign {{modalData.pickup.id}} (available carrier {{carriers.length}})
+    </app-modal-header>
+    <app-modal-body>
+        <mat-form-field class="full-width">
+            <mat-label>Select carrier (delivery boy)</mat-label>
+            <mat-icon matPrefix color="primary" style="margin-right: 20px;">local_shipping</mat-icon>
+            <mat-select formControlName="carrier_id">
+                <mat-option *ngFor="let item of carriers" [value]="item.carrier_id">
+                    {{item.name}} | {{item.mobile_number}} | Orders:{{item.no_of_active_orders}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </app-modal-body>
+    <app-modal-action>
+        <button mat-raised-button color="primary" (click)="submit($event)"
+            [disabled]="_ProgressBarService.inProgress() || form.invalid">Assign</button>
+    </app-modal-action>
+</form>

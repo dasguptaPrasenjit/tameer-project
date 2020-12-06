@@ -1,0 +1,17 @@
+<app-modal-header>Verify documents of {{modalData.carrier?.name}}</app-modal-header>
+<app-modal-body>
+    <div *ngIf="modalData.carrier?.proof_vehicle_no">
+        <div>Vehicle No.</div>
+        <img [src]="_UploaderService.getImage(modalData.carrier?.proof_vehicle_no)" width="100%" appImgFallback>
+    </div>
+    <div *ngIf="modalData.carrier?.proof_photo">
+        <div>Photo</div>
+        <img [src]="_UploaderService.getImage(modalData.carrier?.proof_photo)" width="100%" appImgFallback>
+    </div>
+    <div *ngIf="modalData.carrier?.proof_vehicle_no">
+        <div>Address</div>
+        <img [src]="_UploaderService.getImage(modalData.carrier?.proof_address)" width="100%" appImgFallback>
+    </div>
+    <div *ngIf="!modalData.carrier?.proof_vehicle_no && !modalData.carrier?.proof_photo && !modalData.carrier?.proof_address">Documents not uploaded</div>
+</app-modal-body>
+<app-modal-action></app-modal-action>
